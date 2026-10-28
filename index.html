@@ -113,15 +113,10 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
   <header class="hero">
     <div class="stage" aria-hidden="true"><canvas id="spheres"></canvas></div>
     <div class="id">
-      <img class="pfp" src="img/pfp.jpg" width="96" height="96" alt="Crasho's Rec Room avatar waving">
+      <img class="pfp" src="img/pfp.jpg" width="96" height="96" alt="my rec room avatar waving">
       <h1>Crasho<span>.</span></h1>
     </div>
-    <p class="lede">I'm a <b>VR nerd</b> and a <b>Unity developer</b>. I love Rec Room, and I'm a <b>mod and developer at RecFlare</b>, the fan project that keeps it running on community servers after the official ones shut down. I also made <b>Sphere Spoofers</b> for Meta Quest.</p>
-    <ul class="meta">
-      <li>United Kingdom</li>
-      <li>On GitHub since July 2023</li>
-      <li>VR, Unity, game servers, mods</li>
-    </ul>
+    <p class="lede">hi im crasho [: i'm from the uk, i'm basically always in vr, and i make stuff in unity. i love rec room a lot, so now i'm a mod + dev at <b>RecFlare</b> helping keep it alive after the official servers shut down. i also made a quest game called <b>Sphere Spoofers</b>.</p>
     <div class="links">
       <a class="btn gh" href="https://github.com/crasho-rr" target="_blank" rel="noopener">GitHub · crasho-rr</a>
       <a class="btn ss" href="https://www.meta.com/en-gb/experiences/sphere-spoofers/7173327592749451/" target="_blank" rel="noopener">Sphere Spoofers</a>
@@ -130,87 +125,63 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
   </header>
 
   <section class="about">
-    <h2>VR is my thing</h2>
-    <p>I spend a lot of my time in VR, both playing and building. Most of what I make is for headsets, and Quest is where I feel at home. I like social games best: the ones where you just load into a room with friends and mess around.</p>
-    <p>I build in <b>Unity</b> with C#. That means multiplayer, player customisation, shops and gamemodes, and getting it all to run smoothly on standalone Quest hardware. Rec Room is what got me into all of this, and working on RecFlare lets me keep it going for everyone else too.</p>
+    <h2>vr stuff</h2>
+    <p>i've been into vr for ages. mostly social games where you just hop in with friends and mess around, which is pretty much why i like rec room so much.</p>
+    <p>i build my own stuff in unity with c#, mainly for quest. multiplayer, customisation, shops, gamemodes, that kind of thing. getting it to run ok on a standalone headset is half the battle lol</p>
   </section>
 
   <section>
-    <h2>My game</h2>
+    <h2>my game</h2>
     <article class="feature">
-      <span class="label">Meta Quest · Multiplayer</span>
       <h3>Sphere Spoofers</h3>
-      <p>A social VR game for Quest where every player is a little sphere with a face. Hang out with friends in the lobby, pick your colour and expression on the customisation board, then jump into gamemodes together. Grab new stuff from the shop, or just chill and talk.</p>
+      <p>you're a sphere. everyone's a sphere. you hang out in the lobby, change your colour and face, play gamemodes and buy hats and stuff in the shop. it's on the quest store for free and people seem to like it (4 stars from 23 reviews!!)</p>
       <div class="shots">
         <img src="img/ss-cover.webp" width="720" height="405" alt="Sphere Spoofers cover art: a blue sphere with a smiley face above the game's logo" class="cover">
-        <img src="img/ss-shop.webp" width="1440" height="810" alt="Sphere Spoofers: the shop, with hats, headphones and sunglasses on display and a teal sphere at the counter">
-        <img src="img/ss-shot.webp" width="1440" height="810" alt="Sphere Spoofers: the rocky hub area with the green Shop sign">
+        <img src="img/ss-shop.webp" width="1440" height="810" alt="the shop, with hats, headphones and sunglasses on display and a teal sphere at the counter">
+        <img src="img/ss-shot.webp" width="1440" height="810" alt="the rocky hub area with the green shop sign">
       </div>
-      <div class="stats">
-        <span class="chip hot">★ 4.0 · 23 reviews</span>
-        <span class="chip">Free</span>
-        <span class="chip">PEGI 3</span>
-        <span class="chip">Platformer / Action</span>
-      </div>
-      <div><a href="https://www.meta.com/en-gb/experiences/sphere-spoofers/7173327592749451/" target="_blank" rel="noopener">Get it on the Meta Horizon Store →</a></div>
+      <div><a href="https://www.meta.com/en-gb/experiences/sphere-spoofers/7173327592749451/" target="_blank" rel="noopener">go play it →</a></div>
     </article>
   </section>
 
   <section>
-    <h2>What I work on</h2>
+    <h2>other things i've worked on</h2>
     <ul class="projects">
       <li>
         <h3><a href="https://github.com/recflare/server" target="_blank" rel="noopener">RecFlare server</a></h3>
-        <span class="lang">TypeScript · Hono</span>
-        <p>A Rec Room backend for 2023–2025 builds, written in Node.js with Hono and built to run on Cloudflare. I wrote the Studio endpoints and worked on CDN video support.</p>
+        <span class="lang">typescript</span>
+        <p>the server that runs recflare. i did the studio stuff (that got merged, yay) and had a go at video support on the cdn.</p>
         <div class="prs">
-          <a href="https://github.com/recflare/server/pull/114" target="_blank" rel="noopener">#114 [studio] merged</a>
-          <a href="https://github.com/recflare/server/pull/112" target="_blank" rel="noopener">#112 [cdn] /video/</a>
+          <a href="https://github.com/recflare/server/pull/114" target="_blank" rel="noopener">#114</a>
+          <a href="https://github.com/recflare/server/pull/112" target="_blank" rel="noopener">#112</a>
         </div>
       </li>
       <li>
         <h3><a href="https://github.com/crasho-rr/patch" target="_blank" rel="noopener">RecFlare patch</a></h3>
-        <span class="lang">C# · BepInEx</span>
-        <p>A BepInEx plugin that points the Rec Room client at a custom RecNet and Photon server. Built for RecFlare, but works with any compatible server.</p>
+        <span class="lang">c#</span>
+        <p>bepinex mod that makes rec room connect to recflare instead of the old servers.</p>
       </li>
       <li>
         <h3><a href="https://github.com/RestoRoom/RestoRoom" target="_blank" rel="noopener">RestoRoom</a></h3>
-        <span class="lang">Docs · API</span>
-        <p>An early community effort to reimplement the Rec Room servers before the June 1st 2026 shutdown. I helped document the API surface.</p>
+        <span class="lang">docs</span>
+        <p>helped out with the api docs here before rec room shut down. my last pr was literally with 10 hours left on the clock.</p>
         <div class="prs">
-          <a href="https://github.com/RestoRoom/RestoRoom/pull/6" target="_blank" rel="noopener">#6 leaderboard subdomain</a>
-          <a href="https://github.com/RestoRoom/RestoRoom/pull/126" target="_blank" rel="noopener">#126 last 10 hours</a>
+          <a href="https://github.com/RestoRoom/RestoRoom/pull/6" target="_blank" rel="noopener">#6</a>
+          <a href="https://github.com/RestoRoom/RestoRoom/pull/126" target="_blank" rel="noopener">#126</a>
         </div>
       </li>
       <li>
         <h3><a href="https://github.com/TGGamesYT/redstone-launcher" target="_blank" rel="noopener">Redstone Launcher</a></h3>
-        <span class="lang">JavaScript</span>
-        <p>A third-party Minecraft launcher. I refactored its file downloader so it handles concurrent downloads properly.</p>
+        <span class="lang">js</span>
+        <p>a minecraft launcher. fixed up how it downloads files so it can do a bunch at once.</p>
         <div class="prs">
-          <a href="https://github.com/TGGamesYT/redstone-launcher/pull/1" target="_blank" rel="noopener">#1 concurrent downloads</a>
+          <a href="https://github.com/TGGamesYT/redstone-launcher/pull/1" target="_blank" rel="noopener">#1</a>
         </div>
       </li>
     </ul>
   </section>
 
-  <section>
-    <h2>Stuff I use</h2>
-    <div class="stack">
-      <span>Unity</span><span>C#</span><span>Meta Quest / VR</span><span>Multiplayer</span><span>TypeScript</span><span>Node.js</span><span>Hono</span><span>Cloudflare Workers</span><span>BepInEx</span>
-    </div>
-  </section>
-
-  <section>
-    <h2>So far</h2>
-    <ol class="timeline">
-      <li><time datetime="2023-07">Jul 2023</time><span>Joined GitHub.</span></li>
-      <li><time datetime="2024-05">May 2024</time><span>Shipping updates for Sphere Spoofers on Quest.</span></li>
-      <li class="big"><time datetime="2026-06-01">1 Jun 2026</time><span>Official Rec Room servers shut down. I'd been helping RestoRoom get ready for it.</span></li>
-      <li><time datetime="2026-10">Oct 2026</time><span>Studio support merged into the RecFlare server. Still modding and building for RecFlare.</span></li>
-    </ol>
-  </section>
-
-  <footer>Crasho · crasho-rr on GitHub · RecFlare is a fan project and isn't affiliated with Rec Room Inc.</footer>
+  <footer>made by crasho · recflare isn't affiliated with rec room inc · <a href="https://discord.gg/recflare" target="_blank" rel="noopener">come say hi</a></footer>
 </div>
 
 <script>
