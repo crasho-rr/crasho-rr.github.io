@@ -59,6 +59,9 @@ h1 span { color: var(--accent); }
 .shots { display: grid; gap: 10px; margin-block: 4px; }
 .shots img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--line); }
 
+.about p { margin: 0 0 12px; max-width: 62ch; }
+.about p:last-child { margin-bottom: 0; }
+
 /* sections */
 h2 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; margin: 0 0 18px; letter-spacing: .02em; text-wrap: balance; }
 .label { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
@@ -108,11 +111,11 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
       <img class="pfp" src="img/pfp.jpg" width="96" height="96" alt="Crasho's Rec Room avatar waving">
       <h1>Crasho<span>.</span></h1>
     </div>
-    <p class="lede">I love Rec Room. I'm a <b>mod and developer at RecFlare</b>, the fan project that keeps Rec Room running on community servers after the official ones shut down. I also made <b>Sphere Spoofers</b> for Meta Quest.</p>
+    <p class="lede">I'm a <b>VR nerd</b> and a <b>Unity developer</b>. I love Rec Room, and I'm a <b>mod and developer at RecFlare</b>, the fan project that keeps it running on community servers after the official ones shut down. I also made <b>Sphere Spoofers</b> for Meta Quest.</p>
     <ul class="meta">
       <li>United Kingdom</li>
       <li>On GitHub since July 2023</li>
-      <li>VR, game servers, mods</li>
+      <li>VR, Unity, game servers, mods</li>
     </ul>
     <div class="links">
       <a class="btn primary" href="https://github.com/crasho-rr" target="_blank" rel="noopener">GitHub · crasho-rr</a>
@@ -120,6 +123,12 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
       <a class="btn" href="https://discord.gg/recflare" target="_blank" rel="noopener">RecFlare Discord</a>
     </div>
   </header>
+
+  <section class="about">
+    <h2>VR is my thing</h2>
+    <p>I spend a lot of my time in VR, both playing and building. Most of what I make is for headsets, and Quest is where I feel at home. I like social games best: the ones where you just load into a room with friends and mess around.</p>
+    <p>I build in <b>Unity</b> with C#. That means multiplayer, player customisation, shops and gamemodes, and getting it all to run smoothly on standalone Quest hardware. Rec Room is what got me into all of this, and working on RecFlare lets me keep it going for everyone else too.</p>
+  </section>
 
   <section>
     <h2>My game</h2>
@@ -181,7 +190,7 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
   <section>
     <h2>Stuff I use</h2>
     <div class="stack">
-      <span>C#</span><span>TypeScript</span><span>Node.js</span><span>Hono</span><span>Cloudflare Workers</span><span>BepInEx</span><span>Meta Quest</span>
+      <span>Unity</span><span>C#</span><span>Meta Quest / VR</span><span>Multiplayer</span><span>TypeScript</span><span>Node.js</span><span>Hono</span><span>Cloudflare Workers</span><span>BepInEx</span>
     </div>
   </section>
 
