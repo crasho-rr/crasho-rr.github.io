@@ -1,0 +1,248 @@
+<title>Crasho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one narrow column, a bouncing-sphere hero canvas, then projects as a list of "rooms" and a short timeline. */
+:root {
+  --bg: #eef1f8;
+  --surface: #ffffff;
+  --ink: #18203a;
+  --muted: #5b6482;
+  --line: #d6dbea;
+  --accent: #ff6a2b;
+  --sphere: #2bb6c9;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11152a; --surface: #1a2040; --ink: #eef0fa; --muted: #a2a9c8;
+    --line: #2c3460; --accent: #ff8150; --sphere: #45d0e2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11152a; --surface: #1a2040; --ink: #eef0fa; --muted: #a2a9c8;
+  --line: #2c3460; --accent: #ff8150; --sphere: #45d0e2; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.6;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 64px; display: grid; gap: 56px; }
+a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* hero */
+.hero { display: grid; gap: 20px; }
+.stage { position: relative; height: 180px; border-radius: 18px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
+.stage canvas { width: 100%; height: 100%; display: block; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(3rem, 12vw, 5.5rem); line-height: .95; margin: 0; letter-spacing: .01em; }
+h1 span { color: var(--accent); }
+.lede { font-size: 1.2rem; max-width: 58ch; margin: 0; }
+.lede b { font-weight: 800; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: .95rem; margin: 0; padding: 0; list-style: none; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 2px solid var(--ink); font-weight: 800; text-decoration: none; font-size: .95rem; }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary:hover { background: var(--accent); color: #fff; }
+
+.id { display: flex; align-items: center; gap: 18px; }
+.pfp { width: clamp(64px, 18vw, 96px); height: auto; aspect-ratio: 1; border-radius: 50%; border: 3px solid var(--accent); flex: none; }
+.shots { display: grid; gap: 10px; margin-block: 4px; }
+.shots img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--line); }
+
+/* sections */
+h2 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; margin: 0 0 18px; letter-spacing: .02em; text-wrap: balance; }
+.label { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+
+/* featured */
+.feature { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: grid; gap: 12px; }
+.feature h3 { font-family: var(--display); font-weight: 400; font-size: 1.8rem; margin: 0; line-height: 1.1; }
+.feature p { margin: 0; max-width: 60ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--mono); font-size: .8rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip.hot { border-color: var(--accent); color: var(--accent); }
+
+/* project list */
+.projects { list-style: none; margin: 0; padding: 0; display: grid; }
+.projects li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+.projects li:last-child { border-bottom: 1px solid var(--line); }
+.projects h3 { margin: 0; font-size: 1.1rem; font-weight: 800; min-width: 0; }
+.projects p { grid-column: 1 / -1; margin: 0; color: var(--muted); max-width: 62ch; }
+.projects .lang { font-family: var(--mono); font-size: .8rem; color: var(--sphere); align-self: center; white-space: nowrap; }
+.prs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.prs a { font-family: var(--mono); font-size: .8rem; text-decoration: none; padding: 2px 9px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); }
+.prs a:hover { border-color: var(--accent); }
+
+/* stack */
+.stack { display: flex; flex-wrap: wrap; gap: 8px; }
+.stack span { font-weight: 800; padding: 6px 14px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); }
+
+/* timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.timeline li { display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: baseline; }
+.timeline time { font-family: var(--mono); font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline li.big time { color: var(--accent); font-weight: 600; }
+
+footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+
+@media (max-width: 480px) {
+  .timeline li { grid-template-columns: 1fr; gap: 0; }
+  .projects li { grid-template-columns: 1fr; }
+  .stage { height: 140px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="stage" aria-hidden="true"><canvas id="spheres"></canvas></div>
+    <div class="id">
+      <img class="pfp" src="img/pfp.jpg" width="96" height="96" alt="Crasho's Rec Room avatar waving">
+      <h1>Crasho<span>.</span></h1>
+    </div>
+    <p class="lede">I love Rec Room. I'm a <b>mod and developer at RecFlare</b>, the fan project that keeps Rec Room running on community servers after the official ones shut down. I also made <b>Sphere Spoofers</b> for Meta Quest.</p>
+    <ul class="meta">
+      <li>United Kingdom</li>
+      <li>On GitHub since July 2023</li>
+      <li>VR, game servers, mods</li>
+    </ul>
+    <div class="links">
+      <a class="btn primary" href="https://github.com/crasho-rr" target="_blank" rel="noopener">GitHub · crasho-rr</a>
+      <a class="btn" href="https://www.meta.com/en-gb/experiences/sphere-spoofers/7173327592749451/" target="_blank" rel="noopener">Sphere Spoofers</a>
+      <a class="btn" href="https://discord.gg/recflare" target="_blank" rel="noopener">RecFlare Discord</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>My game</h2>
+    <article class="feature">
+      <span class="label">Meta Quest · Multiplayer</span>
+      <h3>Sphere Spoofers</h3>
+      <p>Chill with your fellow spheres. Play gamemodes, buy things from the shop, hang out with other players and have fun. It's a social VR game where everyone is a sphere.</p>
+      <div class="shots">
+        <img src="img/ss-banner.webp" width="2048" height="614" alt="Sphere Spoofers: spheres in the lobby next to the Colors and Faces customisation board" class="wide">
+        <img src="img/ss-shot.webp" width="1440" height="810" alt="Sphere Spoofers: the rocky hub area with the green Shop sign">
+      </div>
+      <div class="stats">
+        <span class="chip hot">★ 4.0 · 23 reviews</span>
+        <span class="chip">Free</span>
+        <span class="chip">PEGI 3</span>
+        <span class="chip">Platformer / Action</span>
+      </div>
+      <div><a href="https://www.meta.com/en-gb/experiences/sphere-spoofers/7173327592749451/" target="_blank" rel="noopener">Get it on the Meta Horizon Store →</a></div>
+    </article>
+  </section>
+
+  <section>
+    <h2>What I work on</h2>
+    <ul class="projects">
+      <li>
+        <h3><a href="https://github.com/recflare/server" target="_blank" rel="noopener">RecFlare server</a></h3>
+        <span class="lang">TypeScript · Hono</span>
+        <p>A Rec Room backend for 2023–2025 builds, written in Node.js with Hono and built to run on Cloudflare. I wrote the Studio endpoints and worked on CDN video support.</p>
+        <div class="prs">
+          <a href="https://github.com/recflare/server/pull/114" target="_blank" rel="noopener">#114 [studio] merged</a>
+          <a href="https://github.com/recflare/server/pull/112" target="_blank" rel="noopener">#112 [cdn] /video/</a>
+        </div>
+      </li>
+      <li>
+        <h3><a href="https://github.com/crasho-rr/patch" target="_blank" rel="noopener">RecFlare patch</a></h3>
+        <span class="lang">C# · BepInEx</span>
+        <p>A BepInEx plugin that points the Rec Room client at a custom RecNet and Photon server. Built for RecFlare, but works with any compatible server.</p>
+      </li>
+      <li>
+        <h3><a href="https://github.com/RestoRoom/RestoRoom" target="_blank" rel="noopener">RestoRoom</a></h3>
+        <span class="lang">Docs · API</span>
+        <p>An early community effort to reimplement the Rec Room servers before the June 1st 2026 shutdown. I helped document the API surface.</p>
+        <div class="prs">
+          <a href="https://github.com/RestoRoom/RestoRoom/pull/6" target="_blank" rel="noopener">#6 leaderboard subdomain</a>
+          <a href="https://github.com/RestoRoom/RestoRoom/pull/126" target="_blank" rel="noopener">#126 last 10 hours</a>
+        </div>
+      </li>
+      <li>
+        <h3><a href="https://github.com/TGGamesYT/redstone-launcher" target="_blank" rel="noopener">Redstone Launcher</a></h3>
+        <span class="lang">JavaScript</span>
+        <p>A third-party Minecraft launcher. I refactored its file downloader so it handles concurrent downloads properly.</p>
+        <div class="prs">
+          <a href="https://github.com/TGGamesYT/redstone-launcher/pull/1" target="_blank" rel="noopener">#1 concurrent downloads</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Stuff I use</h2>
+    <div class="stack">
+      <span>C#</span><span>TypeScript</span><span>Node.js</span><span>Hono</span><span>Cloudflare Workers</span><span>BepInEx</span><span>Meta Quest</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>So far</h2>
+    <ol class="timeline">
+      <li><time datetime="2023-07">Jul 2023</time><span>Joined GitHub.</span></li>
+      <li><time datetime="2024-05">May 2024</time><span>Shipping updates for Sphere Spoofers on Quest.</span></li>
+      <li class="big"><time datetime="2026-06-01">1 Jun 2026</time><span>Official Rec Room servers shut down. I'd been helping RestoRoom get ready for it.</span></li>
+      <li><time datetime="2026-10">Oct 2026</time><span>Studio support merged into the RecFlare server. Still modding and building for RecFlare.</span></li>
+    </ol>
+  </section>
+
+  <footer>Crasho · crasho-rr on GitHub · RecFlare is a fan project and isn't affiliated with Rec Room Inc.</footer>
+</div>
+
+<script>
+(() => {
+  const c = document.getElementById('spheres');
+  const ctx = c.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, balls = [];
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function size() {
+    const r = c.getBoundingClientRect(), d = devicePixelRatio || 1;
+    W = r.width; H = r.height; c.width = W * d; c.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function seed() {
+    const n = Math.max(6, Math.round(W / 70));
+    balls = Array.from({ length: n }, (_, i) => {
+      const r = 10 + Math.random() * 18;
+      return { x: r + Math.random() * (W - 2 * r), y: H - r - Math.random() * H * .6, vx: (Math.random() - .5) * 1.6, vy: -Math.random() * 3, r, hue: i % 3 };
+    });
+  }
+  function draw() {
+    const cols = [css('--accent'), css('--sphere'), css('--ink')];
+    ctx.clearRect(0, 0, W, H);
+    for (const b of balls) {
+      ctx.globalAlpha = .12; ctx.fillStyle = css('--ink');
+      const s = Math.max(.3, 1 - (H - b.y - b.r) / H);
+      ctx.beginPath(); ctx.ellipse(b.x, H - 4, b.r * s, 3 * s, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1; ctx.fillStyle = cols[b.hue];
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.35)';
+      ctx.beginPath(); ctx.arc(b.x - b.r * .35, b.y - b.r * .35, b.r * .3, 0, Math.PI * 2); ctx.fill();
+      // eyes, because every sphere needs a face
+      ctx.fillStyle = css('--surface');
+      ctx.beginPath(); ctx.arc(b.x - b.r * .25 + b.vx, b.y - b.r * .05, b.r * .12, 0, 7); ctx.arc(b.x + b.r * .25 + b.vx, b.y - b.r * .05, b.r * .12, 0, 7); ctx.fill();
+    }
+  }
+  function step() {
+    for (const b of balls) {
+      b.vy += .25; b.x += b.vx; b.y += b.vy;
+      if (b.y > H - b.r) { b.y = H - b.r; b.vy = -(6 + Math.random() * 4); }
+      if (b.x < b.r || b.x > W - b.r) { b.vx *= -1; b.x = Math.min(W - b.r, Math.max(b.r, b.x)); }
+    }
+    draw();
+    requestAnimationFrame(step);
+  }
+  size(); seed(); draw();
+  addEventListener('resize', () => { size(); seed(); draw(); });
+  c.parentElement.addEventListener('pointerdown', e => {
+    const r = c.getBoundingClientRect();
+    for (const b of balls) if (Math.hypot(b.x - (e.clientX - r.left), b.y - (e.clientY - r.top)) < b.r + 30) b.vy = -12;
+  });
+  if (!reduce) requestAnimationFrame(step);
+})();
+</script>
