@@ -102,6 +102,15 @@ h2 { font-family: var(--display); font-weight: 400; font-size: 1.4rem; margin: 0
 
 footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 20px; }
 
+/* visitor counter: odometer under the footer */
+.visits { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.odo { display: flex; gap: 3px; padding: 6px; border-radius: 10px; background: var(--ink); }
+.odo .d { width: 1.15em; height: 1.5em; overflow: hidden; border-radius: 5px; background: var(--surface); font-family: var(--mono); font-weight: 600; font-size: 1.6rem; line-height: 1.5em; text-align: center; color: var(--ink); font-variant-numeric: tabular-nums; }
+.odo .d:last-child { color: var(--accent); }
+.odo .reel { display: flex; flex-direction: column; transition: transform .8s cubic-bezier(.3,1.4,.5,1); }
+.visits .label { text-transform: none; letter-spacing: .02em; }
+@media (prefers-reduced-motion: reduce) { .odo .reel { transition: none; } }
+
 @media (max-width: 480px) {
   .timeline li { grid-template-columns: 1fr; gap: 0; }
   .projects li { grid-template-columns: 1fr; }
@@ -195,9 +204,50 @@ footer { color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line
   </section>
 
   <footer>made by crasho · recflare isn't affiliated with rec room inc · <a href="https://discord.gg/recflare" target="_blank" rel="noopener">come say hi</a></footer>
+
+  <div class="visits">
+    <div class="odo" id="odo" role="img" aria-label="visitor count loading"></div>
+    <span class="label" id="odo-label">visitors</span>
+  </div>
 </div>
 
 <script>
+// visitor counter (cloudflare worker: D:\Projects\visit-counter)
+(() => {
+  const API = 'https://visits.recrevive.com';
+  const DIGITS = 6;
+  const odo = document.getElementById('odo');
+  const reels = [];
+  for (let i = 0; i < DIGITS; i++) {
+    const d = document.createElement('span'); d.className = 'd';
+    const reel = document.createElement('span'); reel.className = 'reel';
+    for (let n = 0; n <= 9; n++) { const s = document.createElement('span'); s.textContent = n; reel.appendChild(s); }
+    d.appendChild(reel); odo.appendChild(d); reels.push(reel);
+  }
+  function show(count) {
+    const str = String(Math.min(count, 10 ** DIGITS - 1)).padStart(DIGITS, '0');
+    [...str].forEach((ch, i) => { reels[i].style.transform = `translateY(-${ch * 1.5}em)`; });
+    odo.setAttribute('aria-label', `${count} visitors`);
+  }
+  show(0);
+
+  // count each browser at most once every 12 hours, so refreshing doesn't pump the number
+  let last = 0;
+  try { last = Number(localStorage.getItem('counted-at')) || 0; } catch {}
+  const fresh = Date.now() - last > 12 * 3600 * 1000;
+
+  async function load(hit) {
+    try {
+      const r = await fetch(API + (hit ? '/hit' : '/count'), { method: hit ? 'POST' : 'GET' });
+      const { count } = await r.json();
+      if (typeof count === 'number') show(count);
+      if (hit && r.ok) { try { localStorage.setItem('counted-at', String(Date.now())); } catch {} }
+    } catch { /* counter's offline, leave the last number up */ }
+  }
+  load(fresh);
+  setInterval(() => { if (!document.hidden) load(false); }, 30000);
+})();
+
 (() => {
   const c = document.getElementById('spheres');
   const ctx = c.getContext('2d');
